@@ -60,7 +60,7 @@ class CalcBusinessService
         //azure:
         //$db = new PDO("mysql:host=localhost;port=3306;dbname=calculator;", "azure", "6#vWHD_$");
         //heroku:
-        $db = new PDO("mysql:host=cis9cbtgerlk68wl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com	;port=3306;dbname=mel7zwsgvgg3x2tu;", "zhvjmaf13yvhlt2a", "mjuyswzet0cs70wz");
+        $db = new PDO("mysql:host=cis9cbtgerlk68wl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;port=3306;dbname=mel7zwsgvgg3x2tu;", "zhvjmaf13yvhlt2a", "mjuyswzet0cs70wz");
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $service = new CalcDataService($db);
@@ -76,7 +76,7 @@ class CalcBusinessService
         //azure db connection string
             //$db = new PDO("mysql:host=localhost;port=3306;dbname=calculator;", "azure", "6#vWHD_$");
         //heroku db connection string
-            $db = new PDO("mysql:host=cis9cbtgerlk68wl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com	;port=3306;dbname=mel7zwsgvgg3x2tu;", "zhvjmaf13yvhlt2a", "mjuyswzet0cs70wz");
+            $db = new PDO("mysql:host=cis9cbtgerlk68wl.cbetxkdyhwsb.us-east-1.rds.amazonaws.com;port=3306;dbname=mel7zwsgvgg3x2tu;", "zhvjmaf13yvhlt2a", "mjuyswzet0cs70wz");
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
             $pds= new CalcDataService($db);
