@@ -6,6 +6,7 @@
 <form action="calculate" method="POST">
 	<input type="hidden" name="_token" value=" <?php echo csrf_token()?>" />
 	<h2>Calculator</h2>
+	<p>(try me)
 	<table>
 		<tr>
 			<td>First Number:</td>
