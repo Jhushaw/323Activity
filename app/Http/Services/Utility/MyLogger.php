@@ -15,7 +15,7 @@ class MyLogger implements ILogger
         if (self::$logger == null)
         {
             self::$logger = new Logger('logger');
-            self::$logger->pushHandler(new StreamHandler('php://stdout', Logger::DEBUG));
+            self::$logger->pushHandler(new StreamHandler('php://stderr', Logger::DEBUG));
         }
         return self::$logger;
     }
