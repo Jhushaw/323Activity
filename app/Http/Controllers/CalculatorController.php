@@ -9,9 +9,11 @@ use Illuminate\Validation\ValidationException;
 
 use App\Http\Models\Calculator;
 use App\Http\Services\BusinessServices\CalcBusinessService;
+use App\Http\Services\Utility\MyLogger;
 
 class CalculatorController extends Controller
 {
+    
     /**
      * validates form with rules from below
      * recieves input from form
@@ -20,6 +22,7 @@ class CalculatorController extends Controller
      * returns calcResult with the $result data
      */
     public function calculate(Request $request){
+        MyLogger::info("Entering CalculatorController.calculate()");
         //try catch for validation
         try{
             
@@ -49,9 +52,12 @@ class CalculatorController extends Controller
         }
         
         //return view with result
+        MyLogger::info("Exiting CalculatorController.calculate()");
         return view("results")->with('result',$calcModel);
     }catch(ValidationException $e1){
-        
+        MyLogger::error("Exception: ", array(
+            "message" => $e1->getMessage()
+        ));
         throw $e1;
     }
     }
@@ -61,14 +67,17 @@ class CalculatorController extends Controller
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function findAllResults(){
+        MyLogger::info("Entering CalculatorController.findAllResults()");
         //create calcbusinessService
         $cbs = new CalcBusinessService();
         //get all rows
         $results = $cbs->getAllResults();
         //checks if we recieved anything
         if ($results != null){
+            MyLogger::info("Exiting CalculatorController.findAllResults() with success");
             return view('ViewAllResults')->with('results', $results);
         } else {
+            MyLogger::info("Exiting CalculatorController.findAllResults() with an error,(no results in database)");
             return view('Error')->with('msg', 'There are no results in the database.');
         }
     }   
@@ -77,9 +86,10 @@ class CalculatorController extends Controller
      * validates the inputs on the form with these rules
      */
     private function validateForm(Request $request) {
+        MyLogger::info("Entering CalculatorController.validateForm()");
         $rules = ['firstnum' => 'Required | Numeric',
             'secondnum' => 'Required | Numeric', 'oporator' => 'Required | Max:1'];
-        
+        MyLogger::info("Exiting CalculatorController.validateForm()");
         $this->validate($request, $rules);
     }
 }

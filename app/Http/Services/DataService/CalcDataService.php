@@ -4,9 +4,10 @@
 //This is my own work. 
 namespace App\Http\Services\DataService;
 use App\Http\Models\Calculator;
-use App\Services\Utility\DatabaseException;
+use App\Http\Services\Utility\MyLogger;
 use PDO;
 use PDOException;
+use App\Http\Services\Utility\DatabaseException;
 
 
 class CalcDataService
@@ -26,6 +27,7 @@ class CalcDataService
      * @return boolean
      */
     public function create($calcModel){
+        MyLogger::info("entering CalcDataService.create()");
         try {
             //retrieve all parameters from the Calculator model.
             $numOne = (double) $calcModel->getFirstnum();
@@ -40,11 +42,16 @@ class CalcDataService
             //check if the insertion was successful.
             $result = $stmt->rowCount();
             if($result==1){
+                MyLogger::info("exiting CalcDataService.create() with: true");
                 return true;
             }else{
+                MyLogger::info("exiting CalcDataService.create() with: false");
                 return false;
             }
         } catch (PDOException $e2) {
+            MyLogger::error("Exception: ", array(
+                "message" => $e2->getMessage()
+            ));
             throw new DatabaseException("Database Exception: " . $e2->getMessage(), 0, $e2);
         }
     }
@@ -55,6 +62,7 @@ class CalcDataService
      * @return Calculator|NULL
      */
     public function findAll(){
+        MyLogger::info("entering CalcDataService.findAll()");
         try {
             //create select all statement
             $stmt = $this->db->query("SELECT * FROM `calcresults`");
@@ -63,11 +71,17 @@ class CalcDataService
             $result = $stmt->rowCount();
             if ($result != 0) {
                 $Results = $stmt->fetchAll();
+                MyLogger::info("exiting CalcDataService.findAll() with:", $Results);
                 return $Results;
             } else {
+                MyLogger::info("exiting CalcDataService.findAll() with: null");
                 return null;
             }
         } catch (PDOException $e2) {
+
+            MyLogger::error("Exception: ", array(
+                "message" => $e2->getMessage()
+            ));
             throw new DatabaseException("Database Exception: " . $e2->getMessage(), 0, $e2);
         }
     }

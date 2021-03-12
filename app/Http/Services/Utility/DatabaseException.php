@@ -2,7 +2,7 @@
 //Jacob Hushaw
 //CST - 323, Professor Mark Reha
 //This class was created in CST - 256 
-namespace App\Services\Utility;
+namespace App\Http\Services\Utility;
 
 use Exception;
 
